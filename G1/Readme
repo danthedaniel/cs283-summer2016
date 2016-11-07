@@ -1,0 +1,50 @@
+Author: Daniel Angell
+
+PROGRAM USAGE:
+
+You can either call the program via make with the commands:
+WORD=foo make anagram
+or
+WORD=foo LETTER=a PLACE=0 make scrabble
+
+Or call it directly from the shell:
+./g1 foo a 0
+
+DESIGN APPROACH:
+
+I started by designing a header file to take care of linked lists. Here I chose
+to use doubly linked lists. Doubly linked lists are not important for this
+particular assignment, but I thought it useful to have them for the future. I
+tried to add a few helper functions so that the code in the Hash file would be
+as clean as possible.
+
+The Hash module I designed uses an open hashing ADT. It contains an array of
+"buckets", each of which is a linked list of strings. The hashes themselves are
+computed from the string values. The hashing function, hash(), reduces strings
+onto the space of integers between 0 and 1023. The hash value is used as an
+index in the array of buckets.
+
+In the main() function I read through the dictionary file, entering each word
+found into a Hash. Once the entire dictionary file is read, I get the linked list
+that corresponds to the set of potential anagrams of the input word. I then loop
+through each of these, testing if it is truly an anagram.
+
+To take care of the scrabble rules, where a user provides a character and a
+position that must stay constant, I just check if the word from the dictionary
+has the desired char in the desired position before printing it.
+
+TEST RUNS:
+
+$ ./g1 listen
+enlist
+inlets
+silent
+tinsel
+
+$ ./g1 listen l 2
+enlist
+inlets
+silent
+
+$ ./g1 expands
+spandex

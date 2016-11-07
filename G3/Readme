@@ -1,0 +1,55 @@
+Author: Daniel Angell
+Assignment: G3
+
+SERVER SOFTWARE:
+
+The server software can be invoked from the command line as per the following
+instructions:
+
+    usage: server.py [-h] [-host HOST] [-port PORT]
+
+    Host RSA encrypted chat client
+
+    optional arguments:
+      -h, --help  show this help message and exit
+      -host HOST  specify IP to bind to
+      -port PORT  specify port to bind to. Defaults to 1337
+
+So, to bind the server to all interfaces on port 8080 you would run the
+following from the command line:
+
+server.py -port 8080
+
+The server will launch, assuming it can bind to the port, and await clients.
+Upon launching it will generate a keypair. Whenever a new client connects the
+server will perform a handshake with the client (the protocol is JSON based) in
+which public keys are exchanged. After that all packet payloads are RSA
+encrypted.
+
+There is no hard limit on how many clients can connect to the chat server
+simultaneously.
+
+CLIENT SOFTWARE:
+
+Usage details for the client software:
+
+    usage: client.py [-h] [-host HOST] [-port PORT]
+
+    Connect to RSA encrypted chat server
+
+    optional arguments:
+    -h, --help  show this help message and exit
+    -host HOST  specify host to connect to to
+    -port PORT  specify port on the host. Defaults to 1337
+
+Example invokation:
+
+client.py -host localhost -port 8080
+
+From the above command, assuming there is a server at localhost:8080, the client
+will connect to the server and exchange public keys. At that point it will spawn
+two threads, one for reading input from the keyboard and another for displaying
+incoming chat messages (as well as echoed messages from the server).
+
+If the client sends the string "/quit" the server will terminate the connection
+and the client will close itself.

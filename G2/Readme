@@ -1,0 +1,21 @@
+Author: Daniel Angell
+
+Program Design:
+
+This assignment was very much on rails, but I did differ from the layout in a
+couple of areas. In the findClosest() function I decided to initialize the min
+variable with the maximum value possible (the distance between white and black),
+allowing for what I believe to be cleaner code. This way no initial min
+computation needs to take place on scolors[0].
+
+The other difference is in colorDistance(). Instead of computing the actual
+euclidean distance - sqrt(dR^2 + dG^2 + dB^2) - I found it equivalent to leave
+off the square root calculation. I also tried computing the distance as
+abs(dR) + abs(dG) + abs(dB), which resulted in nearly the same image.
+
+Difficulties:
+
+I initially had an issue with the stitchImages() function. When selecting the
+correct sub-image from the array in iclosest I originally was indexing by
+x + y*height, but that ending up being incorrect. I switched to simply
+incrementing an index at the end of each inner loop.
